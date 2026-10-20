@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Commandes{% endblock %}
+
+{% block body %}
+    <h1>Liste de nos commandes</h1>
+
+    <table border="1" cellpadding="10" style="border-collapse: collapse; width: 100%; margin-top: 20px;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th>ID</th>
+                <th>Date</th>
+                <th>Client</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for commande in commandes %}
+                <tr>
+                    <td>{{ commande.id }}</td>
+                    <td>{{ commande.date ? commande.date|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ commande.client ? commande.client.nom : 'N/A' }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucune commande trouvée dans la base de données.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

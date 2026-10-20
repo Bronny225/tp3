@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de {{ client.nom }} {{ client.prenom }}{% endblock %}
+
+{% block body %}
+    <h1>Fiche Client</h1>
+
+    <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 30px;">
+        <p><strong>Nom :</strong> {{ client.nom }}</p>
+        <p><strong>Prénom :</strong> {{ client.prenom }}</p>
+        <p><strong>E-mail :</strong> {{ client.email }}</p>
+        <p><strong>Téléphone :</strong> {{ client.telephone }}</p>
+    </div>
+
+    <h2>Commandes du client</h2>
+
+    <table border="1" cellpadding="10" style="border-collapse: collapse; width: 100%;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th>ID Commande</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {# Doctrine permet d'accéder directement aux commandes liées via client.commandes #}
+            {% for commande in client.commandes %}
+                <tr>
+                    <td>{{ commande.id }}</td>
+                    <td>{{ commande.date ? commande.date|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Ce client n'a passé aucune commande.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <a href="{{ path('app_client_index') }}">← Retour à la liste des clients</a>
+{% endblock %}

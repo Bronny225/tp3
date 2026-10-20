@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Clients{% endblock %}
+
+{% block body %}
+    <h1>Liste de nos clients</h1>
+
+    <table border="1" cellpadding="10" style="border-collapse: collapse; width: 100%; margin-top: 20px;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>E-mail</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.nom }}</td>
+                    <td>{{ client.prenom }}</td>
+                    <td>{{ client.email }} <a href="{{ path('app_client_show', {'id': client.id}) }}">consulter</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucun client trouvé dans la base de données.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
